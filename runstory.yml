@@ -1,0 +1,7 @@
+# runstory.yml holds the settings a person chose. runstory setup --plan shows the rest.
+env:
+  # .env.production sets this to false, but Runstory keeps that file off the
+  # upload. Without it the production build also runs eslint, which scans the
+  # excalidraw-app/build output that an earlier setup step left behind and
+  # crashes with ENOENT (exit 2) while vite rewrites that folder.
+  VITE_APP_ENABLE_ESLINT: "false"
