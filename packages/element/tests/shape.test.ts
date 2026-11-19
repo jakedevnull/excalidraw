@@ -6,6 +6,7 @@ import type { LocalPoint } from "@excalidraw/math";
 import {
   ELBOW_ARROW_CORNER_RADIUS,
   generateElbowArrowShape,
+  generateRoughOptions,
   ShapeCache,
 } from "../src/shape";
 
@@ -76,5 +77,22 @@ describe("elbow arrow shapes", () => {
         [0, 50],
       ]),
     ).toBe(3);
+  });
+});
+
+describe("stroke style line dash", () => {
+  it.each([
+    ["solid", undefined],
+    ["dashed", [8, 10]],
+    ["dotted", [1.5, 8]],
+    ["dashDotted", [8, 7, 1.5, 7]],
+  ] as const)("uses the %s dash pattern", (strokeStyle, lineDash) => {
+    const line = API.createElement({
+      type: "line",
+      strokeStyle,
+      strokeWidth: 2,
+    });
+
+    expect(generateRoughOptions(line).strokeLineDash).toEqual(lineDash);
   });
 });
